@@ -1,12 +1,15 @@
 import { View, Text, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
-import { Colors } from '../../constants/Colors'
-import Category, { ICategory } from './../../components/Home/Category'
+
+
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import { db } from '../../configs/FirebaseConfig'
+
 import ExploreBusinessList from '@/components/Explore/ExploreBusinessList'
 import { IBusiness } from '@/components/Home/PopularBusinessList'
+import { db } from '@/configs/FirebaseConfig'
+import Category, { ICategory } from '@/components/Home/Category'
+import { Colors } from '@/constants/Colors'
 export default function explore() {
 
 

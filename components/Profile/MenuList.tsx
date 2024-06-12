@@ -7,7 +7,7 @@ import {
   Share,
 } from "react-native";
 import React from "react";
-import { Colors } from "./../../constants/Colors";
+import { Colors } from "@/constants/Colors";
 import { useRouter } from "expo-router";
 import { useAuth } from "@clerk/clerk-expo";
 

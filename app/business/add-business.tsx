@@ -1,11 +1,11 @@
-import { View, Text, Image, TouchableOpacity, TextInput, ToastAndroid, ActivityIndicator, ScrollView, TextInputProps } from 'react-native'
+import { View, Text, Image, TouchableOpacity, TextInput, ToastAndroid, ActivityIndicator, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from 'expo-router'
 import * as ImagePicker from 'expo-image-picker';
-import {Colors} from './../../constants/Colors';
+import {Colors} from '@/constants/Colors';
 import RNPickerSelect from 'react-native-picker-select';
 import { collection, doc, getDocs, query, setDoc } from 'firebase/firestore';
-import {db,storage} from './../../configs/FirebaseConfig'
+import {db,storage} from '@/configs/FirebaseConfig'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useUser } from '@clerk/clerk-expo';
 

@@ -10,7 +10,7 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "../../configs/FirebaseConfig";
+import { db } from "@/configs/FirebaseConfig";
 import { useUser } from "@clerk/clerk-expo";
 
 import { IBusiness } from "@/components/Home/PopularBusinessList";
@@ -20,11 +20,12 @@ export interface IBusinessProps {
 }
 
 export default function Intro({ business }: IBusinessProps) {
+  const router = useRouter();
+  const { user } = useUser();
   if (!business) {
     return <Text>Loading...</Text>;
   }
-  const router = useRouter();
-  const { user } = useUser();
+  
   const deleteBusiness = async () => {
     console.log("Delete Business");
     await deleteDoc(doc(db, "BusinessList", business?.id));

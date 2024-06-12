@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocalSearchParams } from 'expo-router'
 import { collection, doc, getDoc, query, where } from 'firebase/firestore';
 import { db } from '../../configs/FirebaseConfig';
-import { Colors } from '../../constants/Colors';
+import { Colors } from '@/constants/Colors';
 import Intro from '../../components/BusinessDetail/Intro';
 import About from '../../components/BusinessDetail/About';
 import Reviews from '../../components/BusinessDetail/Reviews';

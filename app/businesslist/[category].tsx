@@ -1,7 +1,7 @@
 import { View, Text, FlatList, ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
-import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
+import { collection,  getDocs, query, where } from "firebase/firestore";
 import { db } from "@/configs/FirebaseConfig";
 import { IBusiness } from "@/components/Home/PopularBusinessList";
 import BusinessListCard from "@/components/BussinesList/BusinessListCard";

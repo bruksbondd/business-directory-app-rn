@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { useUser } from '@clerk/clerk-expo'
 
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import {db} from './../../configs/FirebaseConfig'
-import BusinessListCard from './../../components/Explore/BusinessListCard'
+import {db} from '@/configs/FirebaseConfig'
+import BusinessListCard from '@/components/Explore/BusinessListCard'
 import { useNavigation } from 'expo-router';
-import { Colors } from '../../constants/Colors';
+import { Colors } from '@/constants/Colors';
 import { IBusiness } from '@/components/Home/PopularBusinessList';
 export default function MyBusiness() {
 
