@@ -4,15 +4,25 @@ import { Colors } from "@/constants/Colors";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "@/configs/FirebaseConfig";
 import CategoryItem from "./CategoryItem";
+import { useRouter } from "expo-router";
 
-interface ICategory {
+export interface ICategory {
   name?: string;
   icon?: string;
   id?: number;
 }
 
-export default function Category() {
+interface ICategoryProps {
+  explore?: boolean;
+  onCategorySelect?: Function;
+}
+
+export default function Category({
+  explore = false,
+  onCategorySelect,
+}: ICategoryProps) {
   const [categoryList, setCategoryList] = useState<Array<ICategory>>([]);
+  const router = useRouter();
   useEffect(() => {
     GetCategoryList();
   }, []);
@@ -23,46 +33,58 @@ export default function Category() {
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
+      console.log(doc.data());
       setCategoryList((prev) => [...prev, doc.data()]);
     });
   };
-
   const onCategoryPressHandler = (item: ICategory) => {
-    console.log(item);
+    if (!explore) {
+      router.push("/businesslist/" + item.name);
+    } else {
+      if (onCategorySelect) onCategorySelect(item.name);
+    }
   };
+
   return (
     <View>
-      <View
-        style={{
-          padding: 20,
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginTop: 10,
-        }}
-      >
-        <Text
+      {!explore && (
+        <View
           style={{
-            marginTop: 5,
-            fontSize: 20,
-            fontFamily: "outfit-bold",
+            padding: 20,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: 10,
           }}
         >
-          Category
-        </Text>
-        <Text style={{ color: Colors.PRIMARY, fontFamily: "outfit-medium" }}>
-          Viev All
-        </Text>
-      </View>
+          <Text
+            style={{
+              marginTop: 5,
+              fontSize: 20,
+              fontFamily: "outfit-bold",
+            }}
+          >
+            Category
+          </Text>
+          <Text
+            style={{
+              fontFamily: "outfit-medium",
+              color: Colors.PRIMARY,
+            }}
+          >
+            View All
+          </Text>
+        </View>
+      )}
       <FlatList
         data={categoryList}
-        style={{ marginLeft: 20 }}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
+        style={{ marginLeft: 20 }}
         renderItem={({ item, index }) => (
           <CategoryItem
-            key={index}
             category={item}
+            key={index}
             onCategoryPress={(category: ICategory) =>
               onCategoryPressHandler(category)
             }

@@ -13,7 +13,10 @@ export interface IBusiness {
   address?: string;
   category?: string;
   contact?: string;
-  id?: string;
+  id: string;
+  userEmail?: string
+  website?: string
+  reviews?: any
 }
 
 export default function PopularBusinessList() {
@@ -57,6 +60,7 @@ export default function PopularBusinessList() {
       </View>
       <FlatList
         horizontal={true}
+        showsHorizontalScrollIndicator={false}
         data={businessList}
         renderItem={({ item, index }) => (
           <PopularBusinessItem key={index} business={item} />
