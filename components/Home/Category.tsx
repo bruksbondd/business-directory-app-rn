@@ -1,7 +1,7 @@
 import { View, Text, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Colors } from "@/constants/Colors";
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/configs/FirebaseConfig";
 import CategoryItem from "./CategoryItem";
 import { useRouter } from "expo-router";
@@ -27,6 +27,22 @@ export default function Category({
     GetCategoryList();
   }, []);
 
+
+  const GetBusinessByCategory=async(categoryName: string )=>{
+    if(onCategorySelect) onCategorySelect([]);
+    const q=query(collection(db,'BusinessList'),where('category','==',categoryName))
+    const querySnapshot = await getDocs(q);
+    const categoryData: ICategory[] = []
+    querySnapshot.forEach((doc)=>{
+      console.log(doc.data())
+      
+      categoryData.push(doc.data())
+    })
+    if(onCategorySelect) onCategorySelect(categoryData);
+   
+  }
+  
+
   const GetCategoryList = async () => {
     setCategoryList([]);
     const q = query(collection(db, "Category"));
@@ -41,7 +57,7 @@ export default function Category({
     if (!explore) {
       router.push("/businesslist/" + item.name);
     } else {
-      if (onCategorySelect) onCategorySelect(item.name);
+      if (onCategorySelect) GetBusinessByCategory(item.name!);
     }
   };
 

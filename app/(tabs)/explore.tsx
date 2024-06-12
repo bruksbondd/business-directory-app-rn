@@ -2,27 +2,22 @@ import { View, Text, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 
-
-import { collection, getDocs, query, where } from 'firebase/firestore'
-
 import ExploreBusinessList from '@/components/Explore/ExploreBusinessList'
 import { IBusiness } from '@/components/Home/PopularBusinessList'
-import { db } from '@/configs/FirebaseConfig'
+
 import Category, { ICategory } from '@/components/Home/Category'
 import { Colors } from '@/constants/Colors'
+
+
 export default function explore() {
 
 
   const  [businessList,setBusinessList] = useState<Array<IBusiness>>([]);
-  const GetBusinessByCategory=async(category: ICategory)=>{
-    setBusinessList([]);
-    const q=query(collection(db,'BusinessList'),where('category','==',category))
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc)=>{
-      console.log(doc.data())
-      setBusinessList(prev=>[...prev,{id:doc.id,...doc.data()}])
-    })
+
+  const onHandleSelect = (doc: IBusiness[]) => {
+    setBusinessList(doc)
   }
+ 
   return (
     <View style={{
       padding:20
@@ -54,7 +49,7 @@ export default function explore() {
       </View>
       <Category
         explore={true}
-        onCategorySelect={(category: ICategory)=>GetBusinessByCategory(category)}
+        onCategorySelect={onHandleSelect}
       />
       <ExploreBusinessList
       businessList={businessList}/>
